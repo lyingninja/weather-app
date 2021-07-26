@@ -1,0 +1,120 @@
+
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+			body{
+				//background-color:#00FFB1;
+				background-color:#0a1f44;
+				}
+			.input-field{
+				margin:30% 8%;
+				}
+			#input{
+				padding:12px 10px 10px 10px;
+				border-width:0 0 2 0;
+				border-style:solid;
+				border-color:white;
+				color:white;
+				background-color:#0a1f44;
+				}
+			#input:focus{
+				border-width:0 0 2 0;
+				border-style:solid;
+				caret-color:white;
+				border-color:white;
+				outline:none;
+				}
+			::-webkit-input-placeholder { 
+                /* Chrome/Opera/Safari */
+               color: #B9C3AD;
+               font-size:15px;
+               padding: 10px 5px;
+               border-style:none;
+               }
+            ::-moz-placeholder { /* Firefox 19+ */
+               color: pink;
+               }
+            :-ms-input-placeholder { /* IE 10+ */
+              color: pink;
+               }
+           :-moz-placeholder { /* Firefox 18- */
+              color: pink;
+              }
+			button{
+				padding:12px;
+				border-style:none;
+				color:white;
+				background-color:teal;
+				border-radius:1px;
+				}
+			#details{
+				border-width:1px;
+				margin:10% 10%;
+				background-color:white;
+				padding:10px;
+				border-radius:8px;
+				}
+			header{
+				text-align:center;
+				font-size:30px;
+				color:white;
+				}
+			#city{
+				font-size:30px;
+				}
+			#temp{
+				
+				}
+		</style>
+	</head>
+	<body>
+		<header>weather app</header>
+		<div class="input-field">
+           <input type="text" id ="input" placeholder="Enter the city">
+           <button class="submit">search</button>
+         </div>
+         <div id="details">
+         	<div id="city"></div><br>
+             <div id="image"></div><br>
+             <div id="weather"></div><br>
+             <div id="temp"></div><br>
+         </div>
+		<script>
+			
+			var button= document.querySelector('.submit');
+			var input= document.getElementById("input");
+			var details = document.getElementById("details");
+			var details_temp = document.getElementById("temp");
+			var details_city = document.getElementById("city");
+			var details_image = document.getElementById("image");
+            var details_weather = document.getElementById("weather");
+            
+            
+			button.addEventListener("click",
+		    function ()
+            {
+               fetch('https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=bf279e832ad9f4e99cacdba33705bc6e')
+			  .then(response => response.json())
+			  .then(data => 
+                 {
+                 	var temp = Math.round(data['main']['temp']-273) ;
+			         var weather = data['weather'][0]['description'] ;
+			         var city = data['name'] ;
+                 	details_city.innerHTML = city ;
+                     details_weather.innerHTML = "weather   -"+"     "+weather ;
+                     details_temp.innerHTML = "Temperature    -"+"     "+temp+"°C";
+                     
+                 })
+			  .catch(err => alert("Wrong city name!"));
+             });
+			
+			
+			
+			
+
+			
+			
+		</script>
+	</body>
+</html>
